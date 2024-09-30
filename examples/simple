@@ -1,0 +1,11 @@
+"os" : "Linux"
+
+// Boolean Logic
+"os" : "Linux" and "variant" : "Arch"
+
+// Boolean Logic sans
+"os" : not "windows"
+
+// Extended case with `:`
+"os" : "Linux" or "MacOS" or "FreeBSD" and not "Solaris"
+
