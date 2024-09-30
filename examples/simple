@@ -1,11 +1,26 @@
 "os" : "Linux"
 
+// Ignores comments
+
+// Ignores whitespace changes
+"os": "linux"
+
+// Escaped strings
+"quote" : "\"Magic is a tool. It's neither good nor evil. The wielder decides.\" - Harry Dresden"
+
 // Boolean Logic
 "os" : "Linux" and "variant" : "Arch"
+"os" : "Linux" AND "variant" : "Arch"
+"flavor" : "peach" and not "cone" : "waffle"
 
-// Boolean Logic sans
+// Chained single expression logic
+"os" : "Linux" or "MacOS"
 "os" : not "windows"
+"flavor" : "peach" or not "anchovies"
 
 // Extended case with `:`
 "os" : "Linux" or "MacOS" or "FreeBSD" and not "Solaris"
+
+// Expression negation
+not "os" : "windows"
 

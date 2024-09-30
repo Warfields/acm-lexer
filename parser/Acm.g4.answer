@@ -1,0 +1,22 @@
+grammar Acm;
+
+// --- Parser grammar ---
+filter: NOT? query (booleanOperator query)*;
+
+query: STRING COLON STRING (booleanOperator STRING)*;
+booleanOperator: (AND | OR) NOT?;
+
+// --- Lexer ---
+
+// Comments
+SINGLE_LINE_COMMENT: '//' ~[\r\n]* -> skip;
+
+// Boolean expression tokens
+OR: 'or' | 'OR';
+AND: 'and' | 'AND';
+NOT: 'not' | 'NOT';
+COLON: ':';
+STRING: '"' (~["] | '\\"')* '"';
+
+// Tell our parser to skip whitespace
+WS: [ \t\r\n]+ -> skip;
