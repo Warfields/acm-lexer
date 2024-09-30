@@ -78,4 +78,10 @@ $RECYCLE.BIN/
 # ANTLR
 */.antlr
 
+# Parser
+AcmLexer*
+acm_*.go
+Acm.int*
+Acm.tok*
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos
