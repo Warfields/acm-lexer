@@ -9,8 +9,8 @@
 "quote" : "\"Magic is a tool. It's neither good nor evil. The wielder decides.\" - Harry Dresden"
 
 // Boolean Logic
-"os" : "Linux" and "variant" : "Arch"
-"os" : "Linux" AND "variant" : "Arch"
+"os" : "Linux" and "distro" : "Arch"
+"os" : "Linux" AND "distro" : "Arch"
 "flavor" : "peach" and not "cone" : "waffle"
 
 // Chained single expression logic
@@ -19,7 +19,7 @@
 "flavor" : "peach" or not "anchovies"
 
 // Extended case with `:`
-"os" : "Linux" or "MacOS" or "FreeBSD" and not "Solaris"
+"os" : "Linux" or "MacOS" or "FreeBSD" or not "Solaris"
 
 // Expression negation
 not "os" : "windows"

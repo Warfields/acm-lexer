@@ -1,11 +1,16 @@
 grammar Acm;
 
 // --- Parser grammar ---
-filter: NOT? query (booleanOperator query)*;
+filter: NOT? query (booleanOperator query)* | EOF;
 
-query: STRING COLON STRING (booleanOperator STRING)*;
+query: fieldName COLON value (orOperator value)*;
+
+orOperator: OR NOT?;
 booleanOperator: (AND | OR) NOT?;
 
+fieldName: STRING;
+value: STRING;
+comment: SINGLE_LINE_COMMENT;
 // --- Lexer ---
 
 // Comments

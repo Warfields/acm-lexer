@@ -4,9 +4,13 @@ Copyright © 2024 Sam Warfield <swarfield@todyl.com>
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"os"
 
+	acm "github.com/Warfields/acm-lexer/parser"
+	"github.com/antlr4-go/antlr/v4"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -71,5 +75,51 @@ func initConfig() {
 }
 
 func parseFile(cmd *cobra.Command, args []string) {
+	lines, err := readFileLines(args[0])
+	if err != nil {
+		log.Fatal(err, args[0])
+	}
+	for _, line := range lines {
+		// Skip empty lines
+		if line == "" {
+			continue
+		}
+		lexer := acm.NewAcmLexer(antlr.NewInputStream(line))
+		tokStream := antlr.NewCommonTokenStream(lexer, 0)
+		parser := acm.NewAcmParser(tokStream)
 
+		parser.AddErrorListener(antlr.NewConsoleErrorListener())
+
+		// Convert input to parse tree
+		parseTree := parser.Filter()
+
+		// Walk the tree to get valuable information
+		listener := acm.NewAcmFieldListener()
+		antlr.ParseTreeWalkerDefault.Walk(listener, parseTree)
+
+		fmt.Println("Filter:", line)
+		fmt.Println("Fields:", listener.GetFields())
+		fmt.Println("Values:", listener.GetValues())
+		fmt.Println("---")
+	}
+}
+
+func readFileLines(filename string) ([]string, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var lines []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return lines, nil
 }

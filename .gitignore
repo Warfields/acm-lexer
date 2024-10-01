@@ -84,4 +84,5 @@ acm_*.go
 Acm.int*
 Acm.tok*
 
+!parser/acm_field_listener.go
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos
